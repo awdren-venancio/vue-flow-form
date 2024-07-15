@@ -99,6 +99,7 @@
   import QuestionModel, { QuestionType, LinkOption } from '../models/QuestionModel'
   import FlowFormDropdownType from './QuestionTypes/DropdownType.vue'
   import FlowFormEmailType from './QuestionTypes/EmailType.vue'
+  import FlowFormFileType from './QuestionTypes/FileType.vue'
   import FlowFormLongTextType from './QuestionTypes/LongTextType.vue'
   import FlowFormMultipleChoiceType from './QuestionTypes/MultipleChoiceType.vue'
   import FlowFormMultiplePictureChoiceType from './QuestionTypes/MultiplePictureChoiceType.vue'
@@ -118,6 +119,7 @@
       FlowFormDateType,
       FlowFormDropdownType,
       FlowFormEmailType,
+      FlowFormFileType,
       FlowFormLongTextType,
       FlowFormMultipleChoiceType,
       FlowFormMultiplePictureChoiceType,
