@@ -1,12 +1,12 @@
 {
-  "name": "@ditdot-dev/vue-flow-form",
-  "author": "DITDOT",
-  "description": "Create conversational conditional-logic forms with Vue.js.",
+  "name": "@awdren-venancio/vue-flow-form",
+  "author": "Awdren",
+  "description": "Create field type file",
   "version": "1.1.7",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/ditdot-dev/vue-flow-form.git"
+    "url": "https://github.com/awdren.venancio/vue-flow-form.git"
   },
   "keywords": [
     "vue",
@@ -24,7 +24,7 @@
   "license": "MIT",
   "homepage": "https://www.ditdot.hr/en/vue-flow-form",
   "bugs": {
-    "url": "https://github.com/ditdot-dev/vue-flow-form/issues"
+    "url": "https://github.com/awdren-venancio/vue-flow-form/issues"
   },
   "main": "dist/vue-flow-form.umd.js",
   "module": "dist/vue-flow-form.esm.js",
