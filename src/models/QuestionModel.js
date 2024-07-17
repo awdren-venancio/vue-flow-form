@@ -19,7 +19,10 @@ export const QuestionType = Object.freeze({
   Phone: 'FlowFormPhoneType',
   SectionBreak: 'FlowFormSectionBreakType',
   Text: 'FlowFormTextType',
-  Url: 'FlowFormUrlType'
+  Url: 'FlowFormUrlType',
+  Matrix: 'FlowFormMatrixType',
+  OpinionScale: 'FlowFormOpinionScaleType',
+  IconRate: 'FlowFormIconRateType',
 })
 
 export const DropdownOptionBlank = Object.freeze({
@@ -74,10 +77,32 @@ export class LinkOption {
   }
 }
 
+export class MatrixColumn {
+  constructor(options) {
+    this.value = ''
+    this.label = ''
+
+    Object.assign(this, options)
+  }
+}
+
+export class MatrixRow {
+  constructor(options) {
+    this.id = ''
+    this.label = ''
+
+    Object.assign(this, options)
+  }
+}
+
 export default class QuestionModel {
   constructor(options) {
+    // Make sure the options variable is an object
+    options = options || {}
+
     this.id = null
     this.answer = null
+    this.filelist = []
     this.answered = false
     this.index = 0
     this.options = []
@@ -103,7 +128,14 @@ export default class QuestionModel {
     this.descriptionLink = []
     this.min = null
     this.max = null
+    this.maxLength = null
     this.nextStepOnAnswer = false
+    this.accept = null
+    this.maxSize = null
+    this.rows = []
+    this.columns = []
+    this.labelLeft = null
+    this.labelRight = null
 
     Object.assign(this, options)
 
@@ -115,7 +147,7 @@ export default class QuestionModel {
       if (!this.placeholder) {
         this.placeholder = this.mask
       }
-    } 
+    }
 
     if (this.type === QuestionType.Url) {
       this.mask = null
@@ -125,8 +157,16 @@ export default class QuestionModel {
       this.placeholder = 'yyyy-mm-dd'
     }
 
-    if (this.multiple && !Array.isArray(this.answer)) {
+    if (this.type !== QuestionType.Matrix && this.multiple && !Array.isArray(this.answer)) {
       this.answer = this.answer ? [this.answer] : []
+    }
+
+    // Check if we have an answer already (when we have a pre-filled form)
+    // and set the answered property accordingly
+    if (!this.required && typeof options.answer !== 'undefined') {
+      this.answered = true
+    } else if (this.answer && (!this.multiple || this.answer.length)) {
+      this.answered = true
     }
 
     this.resetOptions()
@@ -173,6 +213,8 @@ export default class QuestionModel {
         if (this.answer === optionValue || (isArray && this.answer.indexOf(optionValue) !== -1)) {
           o.selected = true
           ++numSelected
+        } else {
+          o.selected = false
         }
       })
 
@@ -192,5 +234,17 @@ export default class QuestionModel {
         }
       }
     }
+  }
+
+  resetAnswer() {
+    this.answered = false
+    this.answer = this.multiple ? [] : null
+    this.other = null
+
+    this.resetOptions()
+  }
+
+  isMultipleChoiceType() {
+    return [QuestionType.MultipleChoice, QuestionType.MultiplePictureChoice].includes(this.type)
   }
 }
