@@ -30,12 +30,8 @@ export default {
   name: QuestionType.File,
   methods: {
     validate() {
-      return !this.question.required || this.hasValue
-    },
-    setAnswer(answer) {
       this.question.filelist = this.$refs.input.files
-      this.question.answer = answer
-      this.question.answered = this.isValid()
+      return !this.question.required || this.hasValue
     },
   },
 }
